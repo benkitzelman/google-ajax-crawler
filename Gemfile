@@ -7,4 +7,5 @@ group :development do
   gem "jeweler", "~> 1.8.3"
   gem "simplecov"
 	gem 'rspec'
+	gem 'rake'
 end

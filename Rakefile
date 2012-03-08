@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/benkitzelman/google-ajax-crawler"
   gem.license = "MIT"
   gem.summary = %Q{An implementation of the Google AJAX Crawling Scheme for Rack apps}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{An implementation of the Google AJAX Crawling Scheme for Rack apps}
   gem.email = "benkitzelman@gmail.com"
   gem.authors = ["Ben Kitzelman"]
   # dependencies defined in Gemfile

@@ -21,11 +21,7 @@ module GoogleAjaxCrawlerProxy
     def serve_crawlable_content_for(request)
       puts ' -- GOOGLE Ajax Web Crawler Request --'
       hashbanged_route = request.params.delete HASHBANG_KEY
-      GoogleAjaxCrawlerProxy::PageProxy.read client_side_url
-    end
-
-    def client_side_url
-      "#{URL_PREFIX}#{hashbanged_route}"
+      GoogleAjaxCrawlerProxy::PageProxy.read "#{URL_PREFIX}#{hashbanged_route}"
     end
   end
 end

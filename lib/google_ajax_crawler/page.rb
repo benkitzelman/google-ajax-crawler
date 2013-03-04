@@ -21,10 +21,7 @@ module GoogleAjaxCrawler
     end
 
   	def get_page_content(uri = URI.parse("http://localhost:3000"))
-      html = options.driver.get_content uri
-
-      puts 'rendering proxied content'
-      [200, json_headers, html]
+      options.driver.get_content uri
     end
 
     protected

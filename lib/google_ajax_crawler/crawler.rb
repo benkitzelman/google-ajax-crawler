@@ -1,8 +1,6 @@
 
 module GoogleAjaxCrawler
   class Crawler
-    HASHBANG_KEY = '_escaped_fragment_'
-    URL_PREFIX   = '/?search-engine=true#!'
 
     class << self
       def options
@@ -39,20 +37,23 @@ module GoogleAjaxCrawler
     protected
 
     def is_search_engine?(request)
-      request.params.include? HASHBANG_KEY
+      request.params.include? options.requested_route_key
     end
 
     def browser_uri_for(url)
       uri    = URI.parse(url)
       params = Rack::Utils.parse_query(uri.query).merge(search_engine: true)
-      uri.fragment = params.delete HASHBANG_KEY
+      uri.fragment = params.delete options.requested_route_key
       uri.query    = Rack::Utils.build_query params
       uri
     end
 
     def serve_crawlable_content_for(request)
       puts ' -- GOOGLE Ajax Web Crawler Request --'
-      GoogleAjaxCrawler::Page.read browser_uri_for(request.url), options
+      html = GoogleAjaxCrawler::Page.read browser_uri_for(request.url), options
+
+      puts 'rendering proxied content'
+      [200, json_headers, html]
     end
   end
 end

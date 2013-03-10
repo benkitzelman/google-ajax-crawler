@@ -1,9 +1,12 @@
 require 'rubygems'
 require 'bundler/setup'
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib', 'google_ajax_crawler_proxy'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib', 'google_ajax_crawler'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'google_ajax_crawler'
-require 'page_proxy'
+
+require 'crawler'
+require 'page'
+require 'options'
+require 'driver'
 
 module TestRackApp
   def self.run
@@ -18,6 +21,6 @@ module TestRackApp
   end
 end
 
-before(:all) do
-  TestRackApp.start
-end
+# before(:all) do
+#   TestRackApp.run
+# end

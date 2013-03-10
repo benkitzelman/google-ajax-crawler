@@ -1,7 +1,9 @@
 require 'rack/utils'
 require 'uri'
 
-require_relative 'google_ajax_crawler/options'
-require_relative 'google_ajax_crawler/crawler'
-require_relative 'google_ajax_crawler/page'
-require_relative 'google_ajax_crawler/driver'
+base_path = './lib/google_ajax_crawler'
+
+require "#{base_path}/drivers/driver"
+[base_path, "#{base_path}/drivers"].each do |folder|
+  Dir["#{folder}/*.rb"].each {|file| require file }
+end

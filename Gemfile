@@ -8,4 +8,5 @@ group :development, :test do
   gem "jeweler"
   gem "simplecov"
 	gem 'rake'
+  gem 'rspec'
 end

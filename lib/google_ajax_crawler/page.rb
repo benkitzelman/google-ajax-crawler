@@ -1,4 +1,3 @@
-
 module GoogleAjaxCrawler
   class Page
     attr_reader :options
@@ -22,15 +21,6 @@ module GoogleAjaxCrawler
 
   	def get_page_content(uri = URI.parse("http://localhost:3000"))
       options.driver.get_content uri
-    end
-
-    protected
-
-    def stdout_to(output_file_path = '/dev/null')
-      orig_stdout = $stdout
-      $stdout = File.new(output_file_path, 'w')
-      yield
-      $stdout = orig_stdout
     end
   end
 end

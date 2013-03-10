@@ -1,13 +1,13 @@
 module GoogleAjaxCrawler
   class Options
-    attr_accessor :driver, :timeout, :requested_route_key
+    attr_accessor :driver, :timeout, :requested_route_key, :page_loaded_test
 
     def initialize(app, &block)
-      @driver  = Driver::CapybaraWebkit.new(self)
+      @driver  = Drivers::CapybaraWebkit.new(self)
       @timeout = 30
       @requested_route_key = '_escaped_fragment_'
-
-      instance_eval &block
+  
+      instance_eval(&block) unless block.nil?
 
       @app = app
     end
@@ -15,5 +15,6 @@ module GoogleAjaxCrawler
     def driver=(klass)
       @driver = klass.new(self)
     end
+
   end
 end

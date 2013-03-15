@@ -5,25 +5,24 @@ class RackApp
     Rack::Builder.new do
 
       use GoogleAjaxCrawler::Crawler do |c|
-        puts 'using configuration', RackApp.configuration
-        RackApp.configuration.call c
+        RackApp.crawler_configuration.call(c)
       end
 
       map '/' do
-        run lambda { |env| [200, { 'Content-Type' => 'text/html' }, [page_content]] }
+        run lambda {|env| [200, { 'Content-Type' => 'text/html' }, [page_content]] }
       end
     end
   end
 
   class << self
-    attr_reader :configuration
+    attr_reader :crawler_configuration
 
     def app
       (@app ||= RackApp.new).app
     end
 
-    def configure(&block)
-      @configuration = block
+    def configure_crawler(&block)
+      @crawler_configuration = block
     end
 
     def start

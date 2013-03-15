@@ -31,10 +31,6 @@ module GoogleAjaxCrawler
       end
     end
 
-    def crawl(url)
-      GoogleAjaxCrawler::Page.read as_uri_with_fragment(url), options
-    end
-
     protected
 
     def is_search_engine?(request)

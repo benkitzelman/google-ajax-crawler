@@ -1,16 +1,15 @@
 <html>
-<head>
-</head>
+<head></head>
 <body>
-<h1>A Simple State Test</h2>
-<p>State: <span id='page_state'></span></p>
-<div class='loading' id='loading'>Loading....</div>
+  <h1>A Simple State Test</h1>
+  <p>State: <span id='page_state'></span></p>
+  <div class='loading' id='loading'>Loading....</div>
 
-<script type='text/javascript'>
+  <script type='text/javascript'>
 
   var init = function() {
     var writeHash = function() {
-      document.getElementById('page_state').innerHTML = document.location.hash;
+      document.getElementById('page_state').innerHTML = "Javascript rendering complete for client-side route " + document.location.hash;
       var loadingMask = document.getElementById('loading');
       loadingMask.parentNode.removeChild(loadingMask);
       console.log('done...');
@@ -24,6 +23,6 @@
   //
   if(/#.*$/.test(document.location.href)) init();
 
-</script>
+  </script>
 </body>
 </html>

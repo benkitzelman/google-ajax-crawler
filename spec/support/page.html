@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+<h1>A Simple State Test</h2>
+<p>State: <span id='page_state'></span></p>
+<div class='loading' id='loading'>Loading....</div>
+
+<script type='text/javascript'>
+
+  var init = function() {
+    var writeHash = function() {
+      document.getElementById('page_state').innerHTML = document.location.hash;
+      var loadingMask = document.getElementById('loading');
+      loadingMask.parentNode.removeChild(loadingMask);
+      console.log('done...');
+    };
+
+    setTimeout(writeHash, 500);
+  };
+
+  //
+  // Only execute js if loading the page using an unescaped url
+  //
+  if(/#.*$/.test(document.location.href)) init();
+
+</script>
+</body>
+</html>

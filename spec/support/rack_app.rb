@@ -1,0 +1,82 @@
+class RackApp
+
+  def app
+    page_content = File.read('./spec/support/page.html')
+    Rack::Builder.new do
+
+      use GoogleAjaxCrawler::Crawler do |c|
+        puts 'using configuration', RackApp.configuration
+        RackApp.configuration.call c
+      end
+
+      map '/' do
+        run lambda { |env| [200, { 'Content-Type' => 'text/html' }, [page_content]] }
+      end
+    end
+  end
+
+  class << self
+    attr_reader :configuration
+
+    def app
+      (@app ||= RackApp.new).app
+    end
+
+    def configure(&block)
+      @configuration = block
+    end
+
+    def start
+      setup!
+      pid = Process.fork
+      if pid.nil?
+        Rack::Server.start(:app => app, :Port => 9999)
+        sleep 1
+      else
+        File.open(pidfile, 'w') { |f| f.write pid }
+        trap("SIGINT") { stop }
+        Process.detach pid
+      end
+    end
+
+    def stop
+      return unless running?
+
+      Process.kill 9, pid
+      File.delete pidfile
+      puts "[Stopped rack app...]"
+    end
+
+    def setup!
+      FileUtils.mkpath(File.dirname(pidfile))
+      FileUtils.mkpath(File.dirname(logfile))
+    end
+
+    def pidfile
+      "tmp/server.pid"
+    end
+
+    def logfile
+      "tmp/server.log"
+    end
+
+    def pid
+      running? ? File.read(pidfile).to_i : 0
+    end
+
+    def running?
+      File.exists?(pidfile)
+    end
+
+    def restart
+      stop if running?
+      start
+    end
+
+    def log_to_file
+      log = File.new RackApp.logfile, "a"
+      STDOUT.reopen log
+      STDERR.reopen log
+    end
+  end
+end

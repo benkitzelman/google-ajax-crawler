@@ -1,26 +1,18 @@
 require 'rubygems'
 require 'bundler/setup'
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib', 'google_ajax_crawler'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'rack'
+require 'capybara/rspec'
+require './lib/google_ajax_crawler'
 
-require 'crawler'
-require 'page'
-require 'options'
-require 'driver'
+here = File.dirname __FILE__
+Dir["#{here}/support/*.rb"].each {|file| require file }
 
-module TestRackApp
-  def self.run
-    app = Rack::Builder.new do
-      map "/" do
-        [200, {}, 'ok']
-      end
-    end
+Capybara.run_server     = false
+Capybara.current_driver = :selenium
+Capybara.app_host = 'http://localhost:9999'
 
-    Rack::Server.start(:app => app, :Port => 9999)
-    puts 'Started... http://localhost:9999'
-  end
+class MockDriver < GoogleAjaxCrawler::Drivers::Driver; end
+
+RSpec.configure do |conf|
+  conf.include Capybara::DSL
 end
-
-# before(:all) do
-#   TestRackApp.run
-# end

@@ -58,6 +58,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
+  capybara
   capybara-webkit (>= 0.10.0)
   jeweler
   rack

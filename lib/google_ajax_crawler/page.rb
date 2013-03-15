@@ -11,14 +11,6 @@ module GoogleAjaxCrawler
       @options = options
     end
 
-    def json_headers
-      {
-        'Content-Type'  => 'text/html',
-        'Cache-Control' => 'max-age=1, must-revalidate',
-        'Keep-Alive'    => 'timeout=30, max=100'
-      }
-    end
-
   	def get_page_content(uri = URI.parse("http://localhost:3000"))
       options.driver.get_content uri
     end

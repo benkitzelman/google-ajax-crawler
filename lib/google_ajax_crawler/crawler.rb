@@ -4,8 +4,8 @@ module GoogleAjaxCrawler
 
     class << self
       def options
-        return @options unless @options.nil?
-        raise "The Crawler must be configured before crawling a URL (Crawler.configure)"
+        configure if @options.nil?
+        @options
       end
 
       def configure(&block)
@@ -13,8 +13,9 @@ module GoogleAjaxCrawler
       end
     end
 
-    def initialize(app)
+    def initialize(app = nil, &block)
       @app = app
+      self.class.configure &block
     end
 
     def options
@@ -31,7 +32,7 @@ module GoogleAjaxCrawler
     end
 
     def crawl(url)
-      GoogleAjaxCrawler::Page.read browser_uri_for(url), options
+      GoogleAjaxCrawler::Page.read as_uri_with_fragment(url), options
     end
 
     protected
@@ -40,7 +41,7 @@ module GoogleAjaxCrawler
       request.params.include? options.requested_route_key
     end
 
-    def browser_uri_for(url)
+    def as_uri_with_fragment(url)
       uri    = URI.parse(url)
       params = Rack::Utils.parse_query(uri.query).merge(search_engine: true)
       uri.fragment = params.delete options.requested_route_key
@@ -50,10 +51,10 @@ module GoogleAjaxCrawler
 
     def serve_crawlable_content_for(request)
       puts ' -- GOOGLE Ajax Web Crawler Request --'
-      html = GoogleAjaxCrawler::Page.read browser_uri_for(request.url), options
+      html = GoogleAjaxCrawler::Page.read as_uri_with_fragment(request.url), options
 
-      puts 'rendering proxied content'
-      [200, json_headers, html]
+      [200, options.response_headers, [html]]
     end
+
   end
 end

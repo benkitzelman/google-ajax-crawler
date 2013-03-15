@@ -31,7 +31,7 @@ module GoogleAjaxCrawler
         if options.page_loaded_test.nil?
           default_page_loaded_test
         else
-          options.page_loaded_test
+          options.page_loaded_test.call(self)
         end
       end
 
@@ -39,7 +39,8 @@ module GoogleAjaxCrawler
         puts 'waiting for page load...'
         begin
           while !is_page_loaded?
-            sleep 1
+            sleep options.poll_interval
+            puts 'retrying'
           end
         rescue
           #...squelch

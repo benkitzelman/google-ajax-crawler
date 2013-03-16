@@ -1,3 +1,5 @@
+require 'rack'
+
 class RackApp
 
   def app
@@ -25,11 +27,15 @@ class RackApp
       @crawler_configuration = block
     end
 
+    def port
+      9999
+    end
+
     def start
       setup!
       pid = Process.fork
       if pid.nil?
-        Rack::Server.start(:app => app, :Port => 9999)
+        Rack::Server.start(:app => app, :Port => port)
         sleep 1
       else
         File.open(pidfile, 'w') { |f| f.write pid }

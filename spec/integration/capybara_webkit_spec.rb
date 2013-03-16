@@ -1,6 +1,10 @@
 require './spec/spec_helper'
 
 describe 'CapybaraWebkit driver' do
+  let(:host)           { "http://localhost:#{RackApp.port}/"}
+  let(:browser_route)  { "#{host}#test" }
+  let(:snapshot_route) { "#{host}?_escaped_fragment_=test" }
+
   before(:all) do
     RackApp.configure_crawler do |config|
       config.driver = GoogleAjaxCrawler::Drivers::CapybaraWebkit
@@ -9,8 +13,6 @@ describe 'CapybaraWebkit driver' do
     end
 
     RackApp.start
-    Capybara.app = RackApp.app
-    visit '/'
   end
 
   after(:all) do
@@ -19,15 +21,15 @@ describe 'CapybaraWebkit driver' do
 
   describe 'when a browser requests a client side route (i.e.: /#my_route)' do
     it 'should not serve a snapshot of the dom' do
-      visit '/#test'
-      page.find('#page_state').text.should_not == 'Javascript rendering complete for client-side route #test'
+      response = Faraday.get browser_route
+      response.body.should_not =~ /Javascript rendering complete for client-side route #test/
     end
   end
 
   describe 'when an ajax crawler requests a snapshot of a client side route' do
     it 'should serve a snapshot of the dom that includes js rendered components' do
-      visit '/?_escaped_fragment_=test'
-      page.find('#page_state').text.should == 'Javascript rendering complete for client-side route #test'
+      response = Faraday.get snapshot_route
+      response.body.should =~ /Javascript rendering complete for client-side route #test/
     end
   end
 end

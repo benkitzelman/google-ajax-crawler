@@ -11,7 +11,7 @@ module GoogleAjaxCrawler
       @options = options
     end
 
-  	def get_page_content(uri = URI.parse("http://localhost:3000"))
+  	def get_page_content(uri = URI.parse("http://localhost"))
       options.driver.get_content uri
     end
   end

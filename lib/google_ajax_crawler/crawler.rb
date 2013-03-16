@@ -40,7 +40,7 @@ module GoogleAjaxCrawler
     def as_uri_with_fragment(url)
       uri    = URI.parse(url)
       params = Rack::Utils.parse_query(uri.query).merge(search_engine: true)
-      uri.fragment = params.delete options.requested_route_key
+      uri.fragment = "!#{params.delete options.requested_route_key}"
       uri.query    = Rack::Utils.build_query params
       uri
     end

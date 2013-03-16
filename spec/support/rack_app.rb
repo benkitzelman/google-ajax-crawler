@@ -36,11 +36,11 @@ class RackApp
       pid = Process.fork
       if pid.nil?
         Rack::Server.start(:app => app, :Port => port)
-        sleep 1
       else
         File.open(pidfile, 'w') { |f| f.write pid }
         trap("SIGINT") { stop }
         Process.detach pid
+        sleep 1
       end
     end
 

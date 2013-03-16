@@ -9,7 +9,7 @@ Details of the scheme can be found at: https://developers.google.com/webmasters/
 install
 
 ``` ruby
-gem install google-ajax-crawler
+gem install google_ajax_crawler
 ```
 
 In your config.ru

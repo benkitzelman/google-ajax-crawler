@@ -36,11 +36,9 @@ module GoogleAjaxCrawler
       end
 
       def wait_until_page_is_fully_loaded
-        puts 'waiting for page load...'
         begin
           while !is_page_loaded?
             sleep options.poll_interval
-            puts 'retrying'
           end
         rescue
           #...squelch

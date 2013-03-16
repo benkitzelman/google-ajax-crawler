@@ -1,7 +1,5 @@
 require 'bundler/setup'
-Bundler.require(:default)
 require './lib/google_ajax_crawler'
-require './spec/support/rack_app'
 
 use GoogleAjaxCrawler::Crawler do |config|
   config.driver = GoogleAjaxCrawler::Drivers::CapybaraWebkit

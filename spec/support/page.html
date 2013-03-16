@@ -11,10 +11,11 @@
     var writeHash = function() {
       document.getElementById('page_state').innerHTML = "Javascript rendering complete for client-side route " + document.location.hash;
       var loadingMask = document.getElementById('loading');
-      loadingMask.parentNode.removeChild(loadingMask);
+      if(loadingMask) loadingMask.parentNode.removeChild(loadingMask);
       console.log('done...');
     };
 
+    window.addEventListener("hashchange", writeHash, false);
     setTimeout(writeHash, 500);
   };
 

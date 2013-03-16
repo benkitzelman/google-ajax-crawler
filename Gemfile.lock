@@ -17,12 +17,6 @@ GEM
     faraday (0.8.6)
       multipart-post (~> 1.1)
     ffi (1.4.0)
-    git (1.2.5)
-    jeweler (1.8.4)
-      bundler (~> 1.0)
-      git (>= 1.2.5)
-      rake
-      rdoc
     json (1.7.7)
     mime-types (1.21)
     multi_json (1.6.1)
@@ -32,8 +26,6 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.0.3)
-    rdoc (4.0.0)
-      json (~> 1.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -60,10 +52,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
   capybara-webkit (>= 0.10.0)
   faraday
-  jeweler
   rack
   rake
   rspec

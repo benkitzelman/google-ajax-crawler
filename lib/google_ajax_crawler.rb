@@ -1,15 +1,14 @@
-require 'rack/utils'
-require 'uri'
-
-base_path = './lib/google_ajax_crawler'
-
-require "#{base_path}/drivers/driver"
-[base_path, "#{base_path}/drivers"].each do |folder|
-  Dir["#{folder}/*.rb"].each {|file| require file }
-end
-
 module GoogleAjaxCrawler
-  def self.version
-    "0.1.1"
+  class << self
+    def version
+      "0.1.2"
+    end
   end
 end
+
+require 'uri'
+require 'google_ajax_crawler/crawler'
+require 'google_ajax_crawler/options'
+require 'google_ajax_crawler/page'
+require 'google_ajax_crawler/drivers/driver'
+require 'google_ajax_crawler/drivers/capybara_webkit'

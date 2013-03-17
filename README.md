@@ -1,7 +1,5 @@
 # Google Ajax Crawler
 
-[![Build Status](https://travis-ci.org/benkitzelman/google-ajax-crawler.png)](https://travis-ci.org/benkitzelman/google-ajax-crawler)
-
 Rack Middleware adhering to the Google Ajax Crawling Scheme, using a headless browser to render JS heavy pages and serve a dom snapshot of the rendered state to a requesting search engine.
 
 Details of the scheme can be found at: https://developers.google.com/webmasters/ajax-crawling/docs/getting-started

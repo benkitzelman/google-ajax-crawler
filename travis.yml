@@ -9,6 +9,5 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
 env:
-  global:
-    - RACK_ENV=ci
+  - RACK_ENV=ci
 # script: "rake ci"

@@ -8,4 +8,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
-#script: bundle exec rspec spec
+env:
+  global:
+    - RACK_ENV=ci
+# script: "rake ci"

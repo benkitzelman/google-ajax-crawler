@@ -1,5 +1,9 @@
 module GoogleAjaxCrawler
   class << self
+    def env
+      (ENV['RACK_ENV'] || 'development').to_sym
+    end
+
     def version
       "0.1.2"
     end

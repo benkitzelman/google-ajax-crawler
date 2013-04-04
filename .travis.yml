@@ -8,8 +8,9 @@ rvm:
 env:
   - RACK_ENV=ci
 
-script:
+before_install: 
   - sh -e /etc/init.d/xvfb start
   - echo "Started xvfb..."
-  - sleep 3
+  
+script:
   - DISPLAY=:99.0 bundle exec rake

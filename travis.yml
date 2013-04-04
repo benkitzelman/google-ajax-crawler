@@ -1,14 +1,16 @@
 language: ruby
+
 rvm:
   - "1.9.2"
   - "1.9.3"
   - jruby-19mode # JRuby in 1.9 mode
   - rbx-19mode
-before_install:
+
+script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - echo "Started xvfb..."
   - sleep 3
+  - bundle exec rake
 env:
   - RACK_ENV=ci
-script: 
-  - DISPLAY=:99.0 xvfb-run -a bundle exec rake ci

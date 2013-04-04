@@ -1,7 +1,7 @@
 # Google Ajax Crawler
 
 [![Build Status](https://travis-ci.org/benkitzelman/google-ajax-crawler.png)](https://travis-ci.org/benkitzelman/google-ajax-crawler)
-[![Gem Version](https://badge.fury.io/rb/google-ajax-crawler.png)](http://badge.fury.io/rb/google-ajax-crawler)
+[![Gem Version](https://badge.fury.io/rb/google_ajax_crawler.png)](http://badge.fury.io/rb/google_ajax_crawler)
 
 Rack Middleware adhering to the Google Ajax Crawling Scheme, using a headless browser to render JS heavy pages and serve a dom snapshot of the rendered state to a requesting search engine.
 

@@ -10,4 +10,5 @@ before_install:
   - sleep 3
 env:
   - RACK_ENV=ci
-script: "DISPLAY=:99.0 xvfb-run -a bundle exec rake ci"
+script: 
+  - DISPLAY=:99.0 xvfb-run -a bundle exec rake ci

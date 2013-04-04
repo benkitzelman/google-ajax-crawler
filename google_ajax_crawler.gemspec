@@ -1,5 +1,4 @@
-$LOAD_PATH << './lib'
-require 'google_ajax_crawler'
+require './lib/google_ajax_crawler'
 Gem::Specification.new do |s|
   s.name        = 'google_ajax_crawler'
   s.version     = GoogleAjaxCrawler.version

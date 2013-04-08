@@ -1,6 +1,6 @@
 #
 # to run:
-# $ rackup config.ru -p 3000
+# $ rackup examples/capybara_webkit.ru -p 3000
 # open browser to http://localhost:3000/#!test
 #
 require 'bundler/setup'

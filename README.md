@@ -47,6 +47,16 @@ Tell the crawler when your page has finished loading / rendering. As determining
 
 The current crawler driver is passed to the lambda to allow querying of the current page's dom state.
 
+A good pattern is to test your page state in a js function returning a boolean, accessible from the window context.. i.e.
+
+```ruby
+
+use GoogleAjaxCrawler::Crawler do |config|
+  config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('myApp.isPageLoaded()') }
+end
+
+```
+
 ### timeout
 
 The max time the crawler should wait before returning a response

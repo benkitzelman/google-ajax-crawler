@@ -10,9 +10,10 @@ module GoogleAjaxCrawler
   end
 end
 
+here = File.dirname(__FILE__)
 require 'uri'
-require 'google_ajax_crawler/crawler'
-require 'google_ajax_crawler/options'
-require 'google_ajax_crawler/page'
-require 'google_ajax_crawler/drivers/driver'
-require 'google_ajax_crawler/drivers/capybara_webkit'
+require "#{here}/google_ajax_crawler/crawler"
+require "#{here}/google_ajax_crawler/options"
+require "#{here}/google_ajax_crawler/page"
+require "#{here}/google_ajax_crawler/drivers/driver"
+require "#{here}/google_ajax_crawler/drivers/capybara_webkit"

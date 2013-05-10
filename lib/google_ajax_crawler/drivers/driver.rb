@@ -1,3 +1,4 @@
+require 'timeout'
 module GoogleAjaxCrawler
   module Drivers
     class Driver
@@ -20,10 +21,16 @@ module GoogleAjaxCrawler
       end
 
       def get_content(uri)
-        puts "requesting: #{uri}"
-        visit uri.to_s
-
-        wait_until_page_is_fully_loaded
+        begin
+          puts "::requesting: #{uri}"
+          visit uri.to_s
+          wait_until_page_is_fully_loaded
+        rescue Timeout::Error
+          puts  "-- Page Rendering Timed out: --\n"\
+                "Either your page_loaded_test didn't successfully detect when your page had loaded, \n"\
+                "or your page took longer than #{options.timeout} seconds to load \n"\
+                "-- Returning page snapshot in its present state --"
+        end
         html
       end
 
@@ -36,13 +43,15 @@ module GoogleAjaxCrawler
       end
 
       def wait_until_page_is_fully_loaded
-        begin
-          while !is_page_loaded?
-            sleep options.poll_interval
+        Timeout::timeout(options.timeout) do
+          begin
+            while !is_page_loaded?
+              sleep options.poll_interval
+            end
+          rescue
+            #...squelch
+            puts "Exception: #{$!}"
           end
-        rescue
-          #...squelch
-          puts "Timeout: #{$!}"
         end
       end
     end

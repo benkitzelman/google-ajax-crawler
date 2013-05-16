@@ -35,19 +35,14 @@ module GoogleAjaxCrawler
       end
 
       def is_page_loaded?
-        if options.page_loaded_test.nil?
-          default_page_loaded_test
-        else
-          options.page_loaded_test.call self
-        end
+        return default_page_loaded_test if options.page_loaded_test.nil?
+        options.page_loaded_test.call self
       end
 
       def wait_until_page_is_fully_loaded
         Timeout::timeout(options.timeout) do
           begin
-            while !is_page_loaded?
-              sleep options.poll_interval
-            end
+            sleep(options.poll_interval) while !is_page_loaded?
           rescue
             #...squelch
             puts "Exception: #{$!}"

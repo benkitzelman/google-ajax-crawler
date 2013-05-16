@@ -38,7 +38,7 @@ module GoogleAjaxCrawler
         if options.page_loaded_test.nil?
           default_page_loaded_test
         else
-          options.page_loaded_test.call(self)
+          options.page_loaded_test.call self
         end
       end
 

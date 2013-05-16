@@ -24,11 +24,9 @@ module GoogleAjaxCrawler
 
     def call(env)
       request = Rack::Request.new(env)
-      if is_search_engine?(request)
-        serve_crawlable_content_for request
-      else
-        @app.call(env)
-      end
+      return serve_crawlable_content_for(request) if is_search_engine?(request)
+      
+      @app.call(env)
     end
 
     protected

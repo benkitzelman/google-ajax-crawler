@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+  </head>
+<body>
+
+  <div id='app'>
+    <div id='loading'>Loading...</div>
+  </div>
+
+  <script type='text/javascript'>
+
+    var View = Backbone.View.extend({
+      className: 'backbone-view',
+      template: _.template(
+        '<h1>Backbone Example</h1><p>This template was rendered by backbone js</p>'
+      ),
+
+      render: function(){
+        var app   = document.getElementById('app');
+        var _this = this;
+        this.el.innerHTML = _this.template();
+        return this;
+      }
+    }); 
+
+    var Router = Backbone.Router.extend({
+      routes: {
+        "*anything": "home"
+      },
+
+      home: function() {
+        el = document.getElementById('app');
+        var view = new View;
+
+        // simulate fetching data / async operation
+        _.delay(function() {
+          el.replaceChild(view.render().el, el.children[0]);
+        }, 1500);
+      }
+    });
+
+    function App() {
+      new Router();
+      Backbone.history.start();
+    };
+
+    App.prototype.pageHasLoaded = function() {
+      return !!document.getElementsByClassName('backbone-view').length;
+    };
+
+
+    $(function() {
+      window.app = new App();
+    });
+
+  </script>
+</body>
+</html>

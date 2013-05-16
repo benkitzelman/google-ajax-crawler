@@ -7,7 +7,8 @@
 
   <script type='text/javascript'>
 
-  var init = function() {
+  
+  function App() {
     var writeHash = function() {
       document.getElementById('page_state').innerHTML = "Javascript rendering complete for client-side route " + document.location.hash;
       var loadingMask = document.getElementById('loading');
@@ -19,10 +20,14 @@
     setTimeout(writeHash, 500);
   };
 
+  App.prototype.pageHasLoaded = function() {
+    return !document.getElementById('loading');
+  };
+
   //
   // Only execute js if loading the page using an unescaped url
   //
-  if(/#.*$/.test(document.location.href)) init();
+  if(/#.*$/.test(document.location.href)) window.app = new App();
 
   </script>
 </body>

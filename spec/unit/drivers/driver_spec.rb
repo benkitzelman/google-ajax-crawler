@@ -3,7 +3,7 @@ require './spec/spec_helper'
 describe GoogleAjaxCrawler::Drivers::Driver do
   let(:options) do 
     GoogleAjaxCrawler::Options.new(nil) do |o|
-      o.timeout = 0.25
+      o.timeout = 0.05
       o.page_loaded_test = lambda {|d| false }
     end
   end

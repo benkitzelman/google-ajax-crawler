@@ -22,8 +22,6 @@ end
 # a sample page using #! url fragments to seed page state
 #
 app = lambda do |env|
-
-  puts env['PATH_INFO']
   page_content = case env['PATH_INFO']
     when /\/backbone(\/)?/
       File.read('./spec/fixtures/backbone.html')

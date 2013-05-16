@@ -9,7 +9,7 @@ describe 'CapybaraWebkit driver' do
     RackApp.configure_crawler do |config|
       config.driver = GoogleAjaxCrawler::Drivers::CapybaraWebkit
       config.poll_interval    = 0.25
-      config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('document.getElementById("loading") == null') }
+      config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('app.pageHasLoaded()') }
     end
 
     RackApp.start

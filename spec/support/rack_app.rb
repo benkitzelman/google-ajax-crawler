@@ -3,7 +3,7 @@ require 'rack'
 class RackApp
 
   def app
-    page_content = File.read('./spec/support/page.html')
+    page_content = File.read('./spec/fixtures/simple_javascript.html')
     Rack::Builder.new do
 
       use GoogleAjaxCrawler::Crawler do |c|

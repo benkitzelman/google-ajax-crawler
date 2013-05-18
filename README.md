@@ -33,7 +33,7 @@ run app
 
 In the examples folder, each driver has a rackup file, which can be launched:
 
-`rackup examples/[driver_name].ru`
+`rackup examples/capybara_webkit.ru`
 
 Examples for how to use the crawler with Backbone.JS, Angular.JS and plain ol javascript are accesible via:
  - http://localhost:9292/backbone

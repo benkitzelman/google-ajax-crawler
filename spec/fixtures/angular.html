@@ -1,0 +1,32 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  </head>
+  <body>
+
+    <div ng-controller="renderTSCtrl">
+      <h1 id='title'>Angular tested route: {{route()}}</h1>
+      <p id='ts'>{{renderTime()}}</p>
+    </div>
+
+    <script type='text/javascript'>
+      function renderTSCtrl ($scope) {
+        $scope.route = function() {
+          return document.location.hash;
+        };
+
+        $scope.renderTime = function() {
+          return "This rendered at " + new Date().toString() +"!";
+        };
+      };
+
+      window.app = {
+        pageHasLoaded: function () {
+          return !!document.getElementById('title').innerText && !!document.getElementById('ts').innerText;
+        }
+      };
+
+    </script>
+  </body>
+</html>

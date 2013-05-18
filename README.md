@@ -35,9 +35,14 @@ In the examples folder, each driver has a rackup file, which can be launched:
 
 `rackup examples/[driver_name].ru`
 
-then open a browser to http://localhost:9292/#!test and view source.... This is how a search engine will see your page. *NOTE:* don't look at the markup through a web inspector as it will most likely display dom elements rendered on the fly by js.
+Examples for how to use the crawler with Backbone.JS, Angular.JS and plain ol javascript are accesible via:
+ - http://localhost:9292/backbone
+ - http://localhost:9292/angular
+ - http://localhost:9292/
 
-Change the url to http://localhost:9292/?_escaped_fragment_=test , and then again view source to see how the DOM state has been captured
+Open a browser to http://localhost:9292/[framework]#!test and view source.... This is how a search engine will see your page. *NOTE:* don't look at the markup through a web inspector as it will most likely display dom elements rendered on the fly by js.
+
+Change the url to http://localhost:9292/[framework]?_escaped_fragment_=test , and then again view source to see how the DOM state has been captured
 
 ## Configuration Options
 

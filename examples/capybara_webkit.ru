@@ -25,6 +25,8 @@ app = lambda do |env|
   page_content = case env['PATH_INFO']
     when /\/backbone(\/)?/
       File.read('./spec/fixtures/backbone.html')
+    when /\/angular(\/)?/
+      File.read('./spec/fixtures/angular.html')
     else
       File.read('./spec/fixtures/simple_javascript.html')
   end

@@ -31,7 +31,7 @@ run app
 
 ## Examples
 
-In the examples folder, each driver has a rackup file, which can be launched:
+In the examples folder, each driver has a rackup file (at the moment only one driver exists), which can be launched:
 
 `rackup examples/capybara_webkit.ru`
 

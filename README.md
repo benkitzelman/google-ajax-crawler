@@ -31,7 +31,7 @@ run app
 
 ## Examples
 
-In the examples folder, each driver has a rackup file (at the moment only one driver exists), which can be launched:
+In the examples folder, each driver has a rackup file (at the moment only one driver, capybara-webkit, exists), which can be launched:
 
 `rackup examples/capybara_webkit.ru`
 
@@ -64,19 +64,23 @@ end
 
 ### timeout
 
-The max time the crawler should wait before returning a response
+The max time (in seconds) the crawler should wait before returning a response. Defaults to 30 seconds.
 
 ### driver
 
-The configured google ajax crawler driver used to query the current page state. Presently there is only one driver (now taking pull requests!); CapybaraWebkit
+The configured google ajax crawler driver used to query the current page state. Defaults to capybara_webkit.
 
 ### poll_interval
 
-How often (in seconds) to test the page state with the configured page_loaded_test
+How often (in seconds) to test the page state with the configured page_loaded_test. Defaults to 0.5 seconds.
 
 ### response_headers
 
-What response headers shoudl be returned with the dom snapshot. Default headers specify the content-type text/html
+What response headers shoudl be returned with the dom snapshot. Default headers specify the content-type text/html.
+
+### requested_route_key
+
+The parameter name used by a search bot to idenitfy which client side route to snapshot. Defaults to _escaped_fragment_.
 
 ## License
 

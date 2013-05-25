@@ -64,7 +64,8 @@ end
 
 ### timeout
 
-The max time (in seconds) the crawler should wait before returning a response. Defaults to 30 seconds.
+The max time (in seconds) the crawler should wait before returning a response. After the timeout has been reached,
+a snapshot of the DOM in its current state is returned. Defaults to 30 seconds.
 
 ### driver
 

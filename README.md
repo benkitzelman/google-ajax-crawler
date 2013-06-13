@@ -31,7 +31,7 @@ run app
 
 ### rails usage
 
-create 
+create in the initializer folder :
 ``` ruby
 google_ajax_crawler_middleware.rb
 ```

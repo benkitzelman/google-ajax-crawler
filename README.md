@@ -9,7 +9,7 @@ Details of the scheme can be found at: https://developers.google.com/webmasters/
 
 ## Using
 
-# install
+### install
 
 ``` ruby
 gem install google_ajax_crawler
@@ -29,7 +29,7 @@ run app
 
 ```
 
-# rails usage
+### rails usage
 
 create 
 ``` ruby

@@ -9,7 +9,7 @@ Details of the scheme can be found at: https://developers.google.com/webmasters/
 
 ## Using
 
-install
+### install
 
 ``` ruby
 gem install google_ajax_crawler
@@ -27,6 +27,24 @@ end
 app = lambda {|env| [200, {'Content-Type' => 'text/plain'}, "b" ] }
 run app
 
+```
+
+### rails usage
+
+create in the initializer folder :
+``` ruby
+google_ajax_crawler_middleware.rb
+```
+
+with 
+``` ruby
+if defined?(Rails.configuration) && Rails.configuration.respond_to?(:middleware)
+  require 'google_ajax_crawler'
+  GoogleAjaxCrawler::Crawler.configure do |config|
+    config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('document.getElementById("loading") == null') }
+  end
+  Rails.configuration.middleware.use GoogleAjaxCrawler::Crawler
+end
 ```
 
 ## Examples

@@ -40,11 +40,20 @@ with
 ``` ruby
 if defined?(Rails.configuration) && Rails.configuration.respond_to?(:middleware)
   require 'google_ajax_crawler'
-  GoogleAjaxCrawler::Crawler.configure do |config|
+  Rails.configuration.middleware.use GoogleAjaxCrawler::Crawler do |config|
     config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('document.getElementById("loading") == null') }
   end
-  Rails.configuration.middleware.use GoogleAjaxCrawler::Crawler
 end
+```
+
+#### Important
+
+Concurrent requests must be enabled to allow your site to snapshot itself. If concurrent requests are not allowed, the site will simple hang on a crawler request.
+
+In config/application.rb :
+
+``` ruby
+config.threadsafe!
 ```
 
 ## Examples

@@ -110,6 +110,30 @@ What response headers shoudl be returned with the dom snapshot. Default headers 
 
 The parameter name used by a search bot to idenitfy which client side route to snapshot. Defaults to _escaped_fragment_.
 
+###caveats
+
+If you use google analytics, google will include the requests from google bot because the code from analytics is executed on the server. To avoid this, use :
+```ruby
+<% unless params[:search_engine] %>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'ANALYTICS-CODE']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+<%end%>
+
+
+```
+
+
 ## License
 
 All free - Use, modify, fork to your hearts content...

@@ -2,6 +2,8 @@
 # to run:
 # $ rackup examples/capybara_webkit.ru -p 3000
 # open browser to http://localhost:3000/#!test
+# or http://localhost:3000/backbone/#!test
+# or http://localhost:3000/backbone/#!test
 #
 require 'bundler/setup'
 require './lib/google_ajax_crawler'
@@ -12,10 +14,14 @@ use GoogleAjaxCrawler::Crawler do |config|
   config.timeout       = 5
 
   #
-  # for the demo - the page is considered loaded when the loading mask has been removed from the DOM
-  # this could evaluate something like $.active == 0 to ensure no jquery ajax calls are pending
+  # for the demo - in each example (simple, backbone and angular) there is a page loaded function signaling
+  # when the page has completed loading. If neither page_loaded_js or page_loaded_test has been configured, the crawler will default to
+  # executing $.active == 0 to ensure no jquery ajax calls are pending
   #
-  config.page_loaded_test = -> driver { driver.page.evaluate_script('app.pageHasLoaded()') }
+  config.page_loaded_js = 'app.pageHasLoaded()'
+
+  # alertnative server side test for the simple_javascript example:
+  # config.page_loaded_test = -> driver { !driver.page.has_css?('#loading') }
 end
 
 #

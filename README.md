@@ -21,7 +21,7 @@ In your config.ru
 require 'google_ajax_crawler'
 
 use GoogleAjaxCrawler::Crawler do |config|
-  config.page_loaded_test = -> driver { driver.page.evaluate_script('document.getElementById("loading") == null') }
+  config.page_loaded_js = "MyApp.isPageLoaded()"
 end
 
 app = -> env { [200, {'Content-Type' => 'text/plain'}, "b" ] }
@@ -73,18 +73,31 @@ Change the url to http://localhost:9292/[framework]?_escaped_fragment_=test , an
 
 ## Configuration Options
 
-### page_loaded_test
+### Page Loaded Tests
 
-Tell the crawler when your page has finished loading / rendering. As determining when a page has completed rendering can depend on a number of qualitative factors (i.e. all ajax requests have responses, certain content has been displayed, or even when there are no loaders / spinners visible on the page), the page loaded test allows you to specify when the crawler should decide that your page has finished loading / rendering and to return a snapshot of the rendered dom at that time.
+As determining when a page has completed rendering can depend on a number of qualitative factors (i.e. all ajax requests have responses, certain content has been displayed, or even when there are no loaders / spinners visible on the page), you can specify one of two ways to tell the crawler that your page has finished loading / rendering and to return a snapshot of the rendered dom at that time.
 
-The current crawler driver is passed to the lambda to allow querying of the current page's dom state.
+#### page_loaded_js (client side test)
 
-A good pattern is to test your page state in a js function returning a boolean, accessible from the window context.. i.e.
+Tell the crawler the client side javascript function (returning true/false) you have created, that determines when your page has finished loading / rendering.
 
 ```ruby
 
 use GoogleAjaxCrawler::Crawler do |config|
-  config.page_loaded_test = -> driver { driver.page.evaluate_script('myApp.isPageLoaded()') }
+  config.page_loaded_js = "MyApp.isPageLoaded()"
+end
+
+```
+
+#### page_loaded_test (server side test)
+
+A server side test determining when your page has finished loading / rendering.
+The configured crawler driver is passed to the lambda to allow querying of the current page's dom state from the server side.
+
+```ruby
+
+use GoogleAjaxCrawler::Crawler do |config|
+  config.page_loaded_test = -> driver { driver.page.has_css?('.loading') == false }
 end
 
 ```
@@ -110,29 +123,12 @@ What response headers shoudl be returned with the dom snapshot. Default headers 
 
 The parameter name used by a search bot to idenitfy which client side route to snapshot. Defaults to _escaped_fragment_.
 
-###caveats
-
-If you use google analytics, google will include the requests from google bot because the code from analytics is executed on the server. To avoid this, use :
-```ruby
-<% unless params[:search_engine] %>
-  <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'ANALYTICS-CODE']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
-<%end%>
 
 
-```
+### Identifing Search Engine Requests
 
+Snapshot requests are passed an additional query string param (?search_engine=true), allowing you to optionally execute client side code.
+This is particularly handy should you have stats tracking code (i.e. Google Analytics), which you don't want executed / included when search engines are trawling your site.
 
 ## License
 

@@ -1,12 +1,6 @@
 require './spec/spec_helper'
 
 describe GoogleAjaxCrawler::Crawler do
-  before(:each) do
-    GoogleAjaxCrawler::Crawler.configure do |config|
-      config.page_loaded_test = lambda{ page.find('.loading', count: 0) }
-    end
-  end
-
   shared_examples 'a crawler configurer' do |method, *args|
     it 'and facilitate the setting of crawler options' do
       GoogleAjaxCrawler::Crawler.send(method, *args) do |config|

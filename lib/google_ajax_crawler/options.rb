@@ -1,6 +1,6 @@
 module GoogleAjaxCrawler
   class Options
-    attr_accessor :driver, :timeout, :requested_route_key, :page_loaded_test, :poll_interval, :response_headers
+    attr_accessor :driver, :timeout, :requested_route_key, :page_loaded_test, :page_loaded_js, :poll_interval, :response_headers
 
     def initialize(app, &block)
       @driver  = Drivers::CapybaraWebkit.new(self)

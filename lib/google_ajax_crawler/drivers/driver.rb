@@ -12,6 +12,10 @@ module GoogleAjaxCrawler
         raise "Driver Not Specified"
       end
 
+      def evaluate_script(javascript)
+        raise "Driver Not Specified"
+      end
+
       def default_page_loaded_test
         raise "Driver Not Specified"
       end
@@ -35,8 +39,9 @@ module GoogleAjaxCrawler
       end
 
       def is_page_loaded?
-        return default_page_loaded_test if options.page_loaded_test.nil?
-        options.page_loaded_test.call self
+        return evaluate_script(options.page_loaded_js) unless options.page_loaded_js.nil?
+        return options.page_loaded_test.call(self) unless options.page_loaded_test.nil?
+        default_page_loaded_test
       end
 
       def wait_until_page_is_fully_loaded

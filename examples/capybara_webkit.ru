@@ -15,13 +15,13 @@ use GoogleAjaxCrawler::Crawler do |config|
   # for the demo - the page is considered loaded when the loading mask has been removed from the DOM
   # this could evaluate something like $.active == 0 to ensure no jquery ajax calls are pending
   #
-  config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('app.pageHasLoaded()') }
+  config.page_loaded_test = -> driver { driver.page.evaluate_script('app.pageHasLoaded()') }
 end
 
 #
 # a sample page using #! url fragments to seed page state
 #
-app = lambda do |env|
+app = -> env do 
   page_content = case env['PATH_INFO']
     when /\/backbone(\/)?/
       File.read('./spec/fixtures/backbone.html')

@@ -21,10 +21,10 @@ In your config.ru
 require 'google_ajax_crawler'
 
 use GoogleAjaxCrawler::Crawler do |config|
-  config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('document.getElementById("loading") == null') }
+  config.page_loaded_test = -> driver { driver.page.evaluate_script('document.getElementById("loading") == null') }
 end
 
-app = lambda {|env| [200, {'Content-Type' => 'text/plain'}, "b" ] }
+app = -> env { [200, {'Content-Type' => 'text/plain'}, "b" ] }
 run app
 
 ```
@@ -41,7 +41,7 @@ with
 if defined?(Rails.configuration) && Rails.configuration.respond_to?(:middleware)
   require 'google_ajax_crawler'
   Rails.configuration.middleware.use GoogleAjaxCrawler::Crawler do |config|
-    config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('document.getElementById("loading") == null') }
+    config.page_loaded_test = -> driver { driver.page.evaluate_script('document.getElementById("loading") == null') }
   end
 end
 ```
@@ -84,7 +84,7 @@ A good pattern is to test your page state in a js function returning a boolean, 
 ```ruby
 
 use GoogleAjaxCrawler::Crawler do |config|
-  config.page_loaded_test = lambda {|driver| driver.page.evaluate_script('myApp.isPageLoaded()') }
+  config.page_loaded_test = -> driver { driver.page.evaluate_script('myApp.isPageLoaded()') }
 end
 
 ```

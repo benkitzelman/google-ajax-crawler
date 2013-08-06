@@ -40,11 +40,13 @@ with
 ``` ruby
 if defined?(Rails.configuration) && Rails.configuration.respond_to?(:middleware)
   require 'google_ajax_crawler'
-  Rails.configuration.middleware.use GoogleAjaxCrawler::Crawler do |config|
+  Rails.configuration.middleware.insert_before ActionDispatch::Static, GoogleAjaxCrawler::Crawler do |config|
     config.page_loaded_test = -> driver { driver.page.evaluate_script('document.getElementById("loading") == null') }
   end
 end
 ```
+
+GoogleAjaxCrawler has to be inserted into the middleware stack before ActionDispatch::Static. It is to prevent serving static pages with angular controllers on them before Crawler has change to react and serve snapshot.
 
 #### Important
 

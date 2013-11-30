@@ -137,3 +137,7 @@ This is particularly handy should you have stats tracking code (i.e. Google Anal
 All free - Use, modify, fork to your hearts content...
 See LICENSE.txt for further details.
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/benkitzelman/google-ajax-crawler/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

@@ -36,7 +36,7 @@ create in the initializer folder :
 google_ajax_crawler_middleware.rb
 ```
 
-with 
+with
 ``` ruby
 if defined?(Rails.configuration) && Rails.configuration.respond_to?(:middleware)
   require 'google_ajax_crawler'
@@ -71,7 +71,7 @@ Examples for how to use the crawler with Backbone.JS, Angular.JS and plain ol ja
 
 Curl, or open a browser to http://localhost:9292/[framework]#!test and view source.... This is how a search engine will see your page before snapshotting. *NOTE:* don't look at the markup through a web inspector as it will most likely display dom elements rendered on the fly by js.
 
-Change the url to http://localhost:9292/[framework]?_escaped_fragment_=test , and then again curl or view source to see how the DOM state has been captured
+Change the url to http://localhost:9292/[framework]?\_escaped_fragment_=test , and then again curl or view source to see how the DOM state has been captured
 
 ## Configuration Options
 

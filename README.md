@@ -1,5 +1,7 @@
 # Google Ajax Crawler
 
+[![Join the chat at https://gitter.im/benkitzelman/google-ajax-crawler](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/benkitzelman/google-ajax-crawler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/benkitzelman/google-ajax-crawler.png)](https://travis-ci.org/benkitzelman/google-ajax-crawler)
 [![Gem Version](https://badge.fury.io/rb/google_ajax_crawler.png)](http://badge.fury.io/rb/google_ajax_crawler)
 
